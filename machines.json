@@ -1,0 +1,37 @@
+[
+    {
+      "id": 1,
+      "name": "Fridge",
+      "producer": "Cool&Cold",
+      "model": "BZF539/4",
+      "serial": "794385762"
+    },
+    {
+      "id": 2,
+      "name": "AC",
+      "producer": "Cool&Cold",
+      "model": "A1215",
+      "serial": "887-665-512378"
+    },
+    {
+      "id": 3,
+      "name": "TV",
+      "producer": "TTCK",
+      "model": "O75K-Y219",
+      "serial": "O6-Y9-3218574"
+    },
+    {
+      "id": 4,
+      "name": "Vacuum Cleaner",
+      "producer": "Professo",
+      "model": "PV3R221",
+      "serial": "438698"
+    },
+    {
+      "id": 5,
+      "name": "Dish Washer",
+      "producer": "Professo",
+      "model": "PD1R103",
+      "serial": "1351681"
+    }
+  ]

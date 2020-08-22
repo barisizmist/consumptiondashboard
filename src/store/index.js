@@ -1,25 +1,30 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
-
 const state = {
   message: "Hello",
-  userName: "Barış"
+  userName: "Barış",
+  machines: [],
+  loading: true
 };
-const getters = {
-  selamlama(state) {
-    return `${state.message} ${state.userName}`;
-  }
-};
+const getters = {};
 const mutations = {
-  setName(state, name) {
-    state.userName = name;
+  loadData(state, machines) {
+    state.machines = machines;
+  },
+  changeLoadingState(state, loading) {
+    state.loading = loading;
   }
 };
+const URL = "https://jsonplaceholder.typicode.com/posts";
 const actions = {
-  updateName({ commit }, name) {
-    commit("setName", name);
+  getMachines({ commit }) {
+    axios.get(URL).then(response => {
+      commit("loadData", response.data);
+      commit("changeLoadingState", false);
+    });
   }
 };
 
@@ -29,4 +34,5 @@ const store = new Vuex.Store({
   mutations,
   actions
 });
+
 export default store;
