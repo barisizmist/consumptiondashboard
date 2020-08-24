@@ -1,17 +1,19 @@
 <template>
-  <div class="home">
-    <h1>Makinalar</h1>
-    <div v-if="loading">
-      loading...
-    </div>
-    <div v-else>
-      <table>
+  <div v-if="loading">
+    loading
+  </div>
+  <div v-else>
+    <h2>Makinalar</h2>
+    <v-simple-table>
+      <template v-slot:default>
         <thead>
-          <th>Id</th>
-          <th>Model</th>
-          <th>İsim</th>
-          <th>Üretici</th>
-          <th>Seri No</th>
+          <tr>
+            <th class="left-center">Id</th>
+            <th class="left-center">Model</th>
+            <th class="left-center">İsim</th>
+            <th class="left-center">Üretici</th>
+            <th class="left-center">Seri No</th>
+          </tr>
         </thead>
         <tbody>
           <tr v-for="machine in machines" :key="machine.id">
@@ -22,8 +24,8 @@
             <td>{{ machine.serial }}</td>
           </tr>
         </tbody>
-      </table>
-    </div>
+      </template>
+    </v-simple-table>
   </div>
 </template>
 
