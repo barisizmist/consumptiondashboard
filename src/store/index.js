@@ -21,7 +21,6 @@ const mutations = {
 const actions = {
   async getMachines({ commit }) {
     await axios.get("/machines").then(res => {
-      console.log(res.data);
       commit("loadData", res.data);
       commit("changeLoadingState", false);
     });

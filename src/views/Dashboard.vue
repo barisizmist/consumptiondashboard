@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <h1>Dashboard</h1>
-    <line-chart :data="data"></line-chart>
+    <line-chart :data="data" width="800px"></line-chart>
     <button class="btn" @click="connectToWebsocket">
       Connect to Websocket
     </button>
@@ -18,6 +18,7 @@ import Chart from "chart.js";
 import { mapState, mapActions } from "vuex";
 
 Vue.use(Chartkick.use(Chart));
+Chartkick.configure({ language: "tr" });
 
 export default {
   computed: {
@@ -25,43 +26,117 @@ export default {
     ...mapActions(["getMachines"])
   },
   data() {
+    // let date = Date.now().toLocaleString();
     return {
       connection: null,
 
       data: [
         {
           name: "Fridge",
+          id: 1,
           data: {
-            "2019-01-01 00:00:00 -0800": 3
+            1: 100,
+            2: 220,
+            3: 280
+          }
+        },
+        {
+          name: "AC",
+          id: 2,
+          data: {
+            1: 140,
+            2: 170,
+            3: 20
+          }
+        },
+        {
+          name: "TV",
+          id: 3,
+          data: {
+            1: 180,
+            2: 120,
+            3: 400
           }
         },
         {
           name: "Vacuum Cleaner",
+          id: 4,
           data: {
-            "2019-05-01 00:00:00 -0800": 5
+            1: 190,
+            2: 80,
+            3: 30
+          }
+        },
+        {
+          name: "Dish Washer",
+          id: 5,
+          data: {
+            1: 145,
+            2: 100,
+            3: 580
           }
         }
       ]
     };
   },
+
   methods: {
     updateChart: function() {
-      // let date = Date.now();
+      // let date = Date.now().toLocaleString();
       this.data = [
         {
           name: "Fridge",
+          id: 1,
           data: {
-            date: 9
+            1: 100,
+            2: 220,
+            3: 280,
+            4: 100
+          }
+        },
+        {
+          name: "AC",
+          id: 2,
+          data: {
+            1: 140,
+            2: 170,
+            3: 20,
+            4: 210
+          }
+        },
+        {
+          name: "TV",
+          id: 3,
+          data: {
+            1: 180,
+            2: 120,
+            3: 400,
+            4: 340
           }
         },
         {
           name: "Vacuum Cleaner",
+          id: 4,
           data: {
-            date: 7
+            1: 190,
+            2: 80,
+            3: 30,
+            4: 49
+          }
+        },
+        {
+          name: "Dish Washer",
+          id: 5,
+          data: {
+            1: 145,
+            2: 100,
+            3: 580,
+            4: 240
           }
         }
       ];
     },
+
     connectToWebsocket: function() {
       this.machines.map(machine => {
         this.connection.send(
@@ -71,20 +146,17 @@ export default {
         );
         this.connection.onmessage = function(event) {
           let chartArr = [];
-          chartArr.push(event.data);
-          this.chartData = chartArr;
-          console.log(this.chartData);
+          let consumption = JSON.parse(event.data);
+          chartArr.push(consumption);
+          console.log(consumption.usage);
+          machine.id == consumption.id ? "OK" : "NO";
         };
       });
     }
   },
   created() {
     this.$store.dispatch("getMachines");
-    //Websocket Connection
     this.connection = new WebSocket("ws://localhost:5000/consumption/");
-    this.connection.onopen = function() {
-      console.log("Successfully connected to websocket");
-    };
   }
 };
 </script>
