@@ -2,7 +2,7 @@
   <div class="wrapper">
     <h1>Dashboard</h1>
     <line-chart :data="data" width="800px"></line-chart>
-    <button class="btn" @click="connectToWebsocket">
+    <button class="btn" @click="getConsumption(1)">
       Connect to Websocket
     </button>
     <button class="btn updatebtn" @click="updateChart">
@@ -22,7 +22,7 @@ Chartkick.configure({ language: "tr" });
 
 export default {
   computed: {
-    ...mapState(["machines", "chartData", "loading"]),
+    ...mapState(["machines", "chartData", "loading", "connectToWebSocket"]),
     ...mapActions(["getMachines"])
   },
   data() {
@@ -137,21 +137,32 @@ export default {
       ];
     },
 
-    connectToWebsocket: function() {
-      this.machines.map(machine => {
-        this.connection.send(
-          JSON.stringify({
-            machine_id: machine.id
-          })
-        );
-        this.connection.onmessage = function(event) {
-          let chartArr = [];
-          let consumption = JSON.parse(event.data);
-          chartArr.push(consumption);
-          console.log(consumption.usage);
-          machine.id == consumption.id ? "OK" : "NO";
-        };
-      });
+    // connectToWebsocket() {
+    //   this.connection.send(
+    //     JSON.stringify({
+    //       machine_id: 1
+    //     })
+    //   );
+    //   this.connection.onmessage = function(event) {
+    //     let chartArr = [];
+    //     let consumption = JSON.parse(event.data);
+    //     chartArr.push(consumption);
+    //     console.log(consumption.usage);
+    //   };
+    // },
+    getConsumption(id) {
+      let consumption;
+      let arr = [];
+      this.connection.send(
+        JSON.stringify({
+          machine_id: id
+        })
+      );
+      this.connection.onmessage = function(event) {
+        consumption = JSON.parse(event.data);
+        arr.push(consumption.usage);
+        console.log("Dizi :" + arr);
+      };
     }
   },
   created() {
