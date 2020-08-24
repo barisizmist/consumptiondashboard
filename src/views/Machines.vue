@@ -5,16 +5,24 @@
       loading...
     </div>
     <div v-else>
-      <ul>
-        <li v-for="machine in machines" :key="machine.id">
-          <h1>
-            {{ machine.name }}
-          </h1>
-          <p>
-            {{ machine.body }}
-          </p>
-        </li>
-      </ul>
+      <table>
+        <thead>
+          <th>Id</th>
+          <th>Model</th>
+          <th>İsim</th>
+          <th>Üretici</th>
+          <th>Seri No</th>
+        </thead>
+        <tbody>
+          <tr v-for="machine in machines" :key="machine.id">
+            <td>{{ machine.id }}</td>
+            <td>{{ machine.model }}</td>
+            <td>{{ machine.name }}</td>
+            <td>{{ machine.producer }}</td>
+            <td>{{ machine.serial }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
