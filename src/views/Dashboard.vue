@@ -1,10 +1,8 @@
 <template>
   <div class="wrapper">
     <h1>Dashboard</h1>
-    <line-chart :data="machines" width="800px"></line-chart>
+    <line-chart :data="machines" width="1000px"></line-chart>
     <button class="btn" @click="getConsumptions()">Get Comsumption</button>
-
-    <button class="btn updatebtn" @click="updateChart">Update chart</button>
   </div>
 </template>
 
@@ -23,10 +21,11 @@ export default {
     ...mapActions(["getMachines", "addUsageAction"])
   },
   data() {
-    // let date = Date.now().toLocaleString();
     return {
       connection: null,
       time: 0,
+      data: this.machines
+
       // data: Object.keys(this.chartData).map(key => {
       //   const cd = this.chartData[key];
       //   return {
@@ -37,59 +36,10 @@ export default {
       //     }, {})
       //   };
       // }),
-      data: this.machines,
-      data2: [
-        {
-          name: "Fridge",
-          id: 1,
-          data: {
-            1: 100,
-            2: 220,
-            3: 280,
-            4: 100
-          }
-        },
-        {
-          name: "AC",
-          id: 2,
-          data: {
-            1: 140,
-            2: 170,
-            3: 20,
-            4: 210
-          }
-        }
-      ],
-      consumptions: null
     };
   },
 
   methods: {
-    updateChart: function() {
-      // let date = Date.now().toLocaleString();
-      this.data = [
-        {
-          name: "Fridge",
-          id: 1,
-          data: {
-            1: 100,
-            2: 220,
-            3: 280,
-            4: 100
-          }
-        },
-        {
-          name: "AC",
-          id: 2,
-          data: {
-            1: 140,
-            2: 170,
-            3: 20,
-            4: 210
-          }
-        }
-      ];
-    },
     getConsumptions() {
       let cons;
       this.machines.forEach(mac => {
@@ -108,40 +58,11 @@ export default {
           });
         };
       });
-    },
-    changeUsage() {
-      return {
-        data: [
-          {
-            name: "Fridge",
-            id: 1,
-            data: {
-              1: 100,
-              2: 220,
-              3: 280
-            }
-          },
-          {
-            name: "AC",
-            id: 2,
-            data: {
-              1: 140,
-              2: 170,
-              3: 20
-            }
-          }
-        ]
-      };
     }
   },
   created() {
     this.$store.dispatch("getMachines");
     this.connection = new WebSocket("ws://localhost:5000/consumption/");
-  },
-  start() {
-    setInterval(() => {
-      this.time++;
-    }, 1000);
   }
 };
 </script>
