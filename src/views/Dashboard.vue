@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>Dashboard</h1>
+    <h1>Anlık Elektrik Tüketim Panosu</h1>
     <line-chart :data="chartData" width="1000px" height="400px"></line-chart>
   </div>
 </template>
@@ -50,7 +50,7 @@ export default {
 
         this.connection.onmessage = event => {
           cons = JSON.parse(event.data);
-          console.log(cons);
+          // console.log(cons);
           this.$store.dispatch("addUsageAction", {
             id: cons.id,
             usage: cons.usage

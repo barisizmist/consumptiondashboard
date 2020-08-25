@@ -23,7 +23,7 @@
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>Consumption Dashboard</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
@@ -53,3 +53,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+h1,
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+</style>

@@ -1,4 +1,4 @@
-# pano
+# consumption dashboard
 
 ## Project setup
 ```
