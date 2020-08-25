@@ -5,7 +5,7 @@ import axios from "axios";
 Vue.use(Vuex);
 const state = {
   machines: [],
-  chartData: {},
+  chartData: [],
   loading: true
 };
 const getters = {};
@@ -21,7 +21,7 @@ const mutations = {
     const mac = data.find(d => d.id === id);
     if (mac && mac.data) mac.data[new Date()] = usage;
     else mac.data = { [new Date()]: usage };
-    state.machines = data;
+    state.chartData = data;
   }
 };
 

@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
     <h1>Dashboard</h1>
-    <line-chart :data="machines" width="1000px"></line-chart>
-    <button class="btn" @click="getConsumptions()">Get Comsumption</button>
+    <line-chart :data="chartData" width="1000px" height="400px"></line-chart>
   </div>
 </template>
 
@@ -63,6 +62,9 @@ export default {
   created() {
     this.$store.dispatch("getMachines");
     this.connection = new WebSocket("ws://localhost:5000/consumption/");
+    setTimeout(() => {
+      this.getConsumptions();
+    }, 500);
   }
 };
 </script>
